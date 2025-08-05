@@ -1,0 +1,40 @@
+{
+  "name": "resume-zk-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Resume ZK Monorepo with Next.js app and Foundry contracts",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev -w web",
+    "build": "npm run build -w web",
+    "start": "npm run start -w web",
+    "lint": "npm run lint -w web",
+    "test": "npm run test -w web && npm run test -w contracts",
+    "clean": "rm -rf node_modules && rm -rf packages/*/node_modules",
+    "install:all": "npm install",
+    "web:dev": "npm run dev -w web",
+    "web:build": "npm run build -w web",
+    "web:start": "npm run start -w web",
+    "web:lint": "npm run lint -w web",
+    "contracts:build": "npm run build -w contracts",
+    "contracts:test": "npm run test -w contracts",
+    "contracts:deploy": "npm run deploy -w contracts",
+    "contracts:deploy:sepolia": "npm run deploy:sepolia -w contracts",
+    "contracts:deploy:mainnet": "npm run deploy:mainnet -w contracts"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "eslint": "^8.0.0",
+    "prettier": "^3.0.0",
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "dependencies": {
+    "@primuslabs/zktls-core-sdk": "^0.2.0"
+  }
+}
