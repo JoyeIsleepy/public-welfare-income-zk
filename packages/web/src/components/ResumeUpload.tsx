@@ -79,8 +79,8 @@ export function ResumeUpload() {
   return (
     <div className="flex h-full">
       {/* 左侧列表 */}
-      <div className="w-1/3 border-r  overflow-y-auto">
-        <div className="p-4 font-semibold text-lg  border-gray-700">
+      <div className="w-1/3 border-r border-[#42433d] bg-gray-900 bg-opacity-70 overflow-y-auto">
+        <div className="p-4 font-semibold text-lg border-b border-[#42433d]">
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-500 to-cyan-400">
             公益合约列表
           </span>
@@ -152,20 +152,14 @@ export function ResumeUpload() {
       {/* 右侧详情 */}
       <div className="w-2/3 overflow-y-auto p-6">
         {selectedContract ? (
-          <div className="bg-gray-900 rounded-xl shadow-lg p-6 border border-gray-800">
+          <div className="bg-gray-900 bg-opacity-70  rounded-xl shadow-lg p-6 border border-gray-800">
             <h2 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-blue-500">
               {selectedContract.title}
             </h2>
             <p className="mt-2 text-gray-400">{selectedContract.description}</p>
 
             <div className="mt-8 pt-6 border-t border-gray-800">
-              <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* <div className="bg-gray-800 p-4 rounded-lg border border-gray-700">
-                  <h3 className="text-sm font-medium text-gray-400">创建者</h3>
-                  <p className="mt-2 text-sm text-cyan-400 font-mono break-all">
-                    {selectedContract.creator}
-                  </p>
-                </div> */}
+              <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6"> 
                 <div className="bg-gray-800 p-4 rounded-lg border border-gray-700">
                   <h3 className="text-sm font-medium text-gray-400">受益人</h3>
                   <p className="mt-2 text-sm text-cyan-400 font-mono break-all">

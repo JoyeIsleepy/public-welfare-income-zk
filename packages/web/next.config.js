@@ -3,9 +3,14 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  // 开发环境配置：确保source-map可用，代码不压缩
+  productionBrowserSourceMaps: true,
   webpack: (config, { dev, isServer }) => {
     config.resolve.fallback = { fs: false, net: false, tls: false };
     config.externals.push('pino-pretty', 'lokijs', 'encoding');
+    
+    // 开发环境：确保source-map可用（Next.js默认已处理）
+    // 移除可能导致问题的webpack优化配置
     
     // 修复 RainbowKit worker 构建问题
     if (!isServer) {
@@ -54,6 +59,7 @@ const nextConfig = {
   },
   transpilePackages: ['@rainbow-me/rainbowkit'],
   swcMinify: false,
+
 };
 
 module.exports = nextConfig;

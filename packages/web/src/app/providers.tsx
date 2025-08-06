@@ -6,7 +6,6 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { RainbowKitProvider } from '@rainbow-me/rainbowkit'
 import { config } from '@/lib/wagmi'
 import '@rainbow-me/rainbowkit/styles.css'
-import { useEffect, useState } from 'react'
 import { Toaster } from 'react-hot-toast'
 
 const queryClient = new QueryClient({

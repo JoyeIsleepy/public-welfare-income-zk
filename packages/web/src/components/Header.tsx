@@ -47,20 +47,18 @@ export function Header() {
               openAccountModal,
               openChainModal,
               openConnectModal,
-              authenticationStatus,
               mounted,
-            }) => {
-              const ready = mounted && authenticationStatus !== 'loading'
-              const connected =
-                ready &&
-                account &&
-                chain &&
-                (!authenticationStatus ||
-                  authenticationStatus === 'authenticated')
-
+            }) => { 
+              const connected = mounted && account && chain
+              console.log('=== RainbowKit Debug ===')
+              console.log('mounted:', mounted, typeof mounted)
+              console.log('account:', account, typeof account)
+              console.log('chain:', chain, typeof chain)
+              console.log('connected:', connected, typeof connected)
+              console.log('openChainModal:', openChainModal, typeof openChainModal)
               return (
                 <div
-                  {...(!ready && {
+                  {...(!mounted && {
                     'aria-hidden': true,
                     style: {
                       opacity: 0,
@@ -100,10 +98,17 @@ export function Header() {
                       )
                     }
 
-                    if (chain.unsupported) {
+                    if (chain?.unsupported) {
                       return (
                         <button
-                          onClick={openChainModal}
+                          onClick={() => {
+                            console.log('Wrong network button clicked', openChainModal)
+                            try {
+                              openChainModal()
+                            } catch (error) {
+                              console.error('Error opening chain modal:', error)
+                            }
+                          }}
                           type="button"
                           className="bg-red-900/80 text-red-400 px-4 py-2 rounded-lg font-medium hover:opacity-90 transition-opacity flex items-center"
                         >
@@ -124,68 +129,74 @@ export function Header() {
                         </button>
                       )
                     }
-
-                    return (
-                      <div className="flex items-center space-x-1 md:space-x-2">
-                        <DonationFormTrigger onSubmit={handleDonationSubmit}>
-                          <button
-                            type="button"
-                            className="bg-primary text-primary-foreground px-3 md:px-4 py-2 rounded-lg font-medium hover:opacity-90 transition-opacity text-sm"
-                          >
-                            <span className="hidden sm:inline">
-                              新增捐款活动
-                            </span>
-                            <span className="sm:hidden">新增</span>
-                          </button>
-                        </DonationFormTrigger>
+                    if(connected){
+                      return  <div className="flex items-center space-x-1 md:space-x-2">
+                      <DonationFormTrigger onSubmit={handleDonationSubmit}>
                         <button
-                          onClick={openChainModal}
                           type="button"
-                          className="flex items-center space-x-2 bg-gray-800 text-gray-200 px-3 py-2 rounded-lg hover:bg-gray-700 transition-all border border-gray-700"
-                        >
-                          {chain.hasIcon && (
-                            <div
-                              style={{
-                                background: chain.iconBackground,
-                                width: 16,
-                                height: 16,
-                                borderRadius: 999,
-                                overflow: 'hidden',
-                              }}
-                            >
-                              {chain.iconUrl && (
-                                <img
-                                  alt={chain.name ?? 'Chain icon'}
-                                  src={chain.iconUrl}
-                                  style={{ width: 16, height: 16 }}
-                                />
-                              )}
-                            </div>
-                          )}
-                          <span className="text-xs md:text-sm">
-                            {chain.name}
-                          </span>
-                        </button>
-
-                        <button
-                          onClick={openAccountModal}
-                          type="button"
-                          className="bg-gray-800 text-gray-200 px-3 md:px-4 py-2 rounded-lg font-medium hover:bg-gray-700 transition-all border border-gray-700 flex items-center"
+                          className="bg-primary text-primary-foreground px-3 md:px-4 py-2 rounded-lg font-medium hover:opacity-90 transition-opacity text-sm"
                         >
                           <span className="hidden sm:inline">
-                            {account.displayName}
+                            新增捐款活动
                           </span>
-                          <span className="sm:hidden">
-                            {account.displayName?.slice(0, 6)}...
-                          </span>
-                          {account.displayBalance && (
-                            <span className="hidden md:inline ml-1 text-cyan-400">
-                              {account.displayBalance}
-                            </span>
-                          )}
+                          <span className="sm:hidden">新增</span>
                         </button>
-                      </div>
-                    )
+                      </DonationFormTrigger>
+                      <button
+                        onClick={() => {
+                          console.log('Chain modal button clicked', openChainModal)
+                          try {
+                            openChainModal()
+                          } catch (error) {
+                            console.error('Error opening chain modal:', error)
+                          }
+                        }}
+                        type="button"
+                        className="flex items-center space-x-2 bg-gray-800 text-gray-200 px-3 py-2 rounded-lg hover:bg-gray-700 transition-all border border-gray-700"
+                      >
+                        {chain.hasIcon && (
+                          <div
+                            style={{
+                              background: chain.iconBackground,
+                              width: 16,
+                              height: 16,
+                              borderRadius: 999,
+                              overflow: 'hidden',
+                            }}
+                          >
+                            {chain.iconUrl && (
+                              <img
+                                alt={chain.name ?? 'Chain icon'}
+                                src={chain.iconUrl}
+                                style={{ width: 16, height: 16 }}
+                              />
+                            )}
+                          </div>
+                        )}
+                        <span className="text-xs md:text-sm">
+                          {chain.name}
+                        </span>
+                      </button>
+
+                      <button
+                        onClick={openAccountModal}
+                        type="button"
+                        className="bg-gray-800 text-gray-200 px-3 md:px-4 py-2 rounded-lg font-medium hover:bg-gray-700 transition-all border border-gray-700 flex items-center"
+                      >
+                        <span className="hidden sm:inline">
+                          {account.displayName}
+                        </span>
+                        <span className="sm:hidden">
+                          {account.displayName?.slice(0, 6)}...
+                        </span>
+                        {account.displayBalance && (
+                          <span className="hidden md:inline ml-1 text-cyan-400">
+                            {account.displayBalance}
+                          </span>
+                        )}
+                      </button>
+                    </div> 
+                    } 
                   })()}
                 </div>
               )

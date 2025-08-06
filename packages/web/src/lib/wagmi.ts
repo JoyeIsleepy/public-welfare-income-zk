@@ -24,11 +24,13 @@ export const monadtest: Chain = {
   testnet: true,
 }
 
-const projectId = process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID || 'm89f61yfqM-Yk2WMpMwq3liE8Hn2RdUr'
 
+const projectId = process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID || '56305ecce9d7b753c3e0eeb4de597c63'
+
+// 使用最简化的配置，避免外部API问题
 export const config = getDefaultConfig({
-  appName: 'Resume ZK',
+  appName: '公益溯源捐款',
   projectId,
   chains: [monadtest],
-  ssr: true,
+  ssr: false,
 })

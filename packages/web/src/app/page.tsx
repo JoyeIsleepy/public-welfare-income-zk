@@ -6,7 +6,7 @@ import { ClientOnly } from '@/components/ClientOnly'
 export default function Home() {
   return (
     <div
-      className="min-h-screen bg-gradient-to-br to-primary/5 bg-gray-900/95 backdrop-blur supports-[backdrop-filter]:bg-gray-900/60 flex flex-col"
+      className="h-screen bg-gradient-to-br to-primary/5 bg-gray-900/95 backdrop-blur supports-[backdrop-filter]:bg-gray-900/60 flex flex-col"
       style={{
         backgroundColor: '#111',
         backgroundImage: `
@@ -20,9 +20,11 @@ export default function Home() {
       }}
     >
       <Header />
-      <main className="container mx-auto pr-4 flex-1">
+      <main className="container mx-auto pr-4 flex-1 flex flex-col">
         <ClientOnly>
-          <ResumeUpload />
+          <div className="flex-1">
+            <ResumeUpload />
+          </div>
         </ClientOnly>
       </main>
       <footer className="bg-[#0e100f] border-t border-[#42433d] backdrop-blur shrink-0">
